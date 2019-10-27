@@ -1,12 +1,14 @@
 import { h, mount, patch } from './vnode';
 
 const root = document.getElementById('root');
-// const vNode = h(
-//   'div',
-//   { style: { color: 'red' }, key: 'div1' },
-//   'hello',
-//   h('h1', { style: {color: 'blue'} }, h('h2', { style:{ background: 'blue' } }, 'hello'))
-// )
+const vNode = h(
+  'div',
+   { style: { color: 'red' }, id: 'wrap'},
+   h('h1', {}, 'Virtual'),
+   'Dom'
+)
+console.log(vNode);
+
 
 // const oldVnode = h('ul', { id: 'container' },
 //     h('li', { style: { backgroundColor: '#110000' }, key: 'A' }, 'A'),
@@ -49,8 +51,7 @@ const newVnode = h('ul', { id: 'container' },
     h('li', { style: { backgroundColor: '#AA0000' }, key: 'D' }, 'D1'),
     h('li', { style: { backgroundColor: '#770000' }, key: 'F' }, 'F'),
 );
-
-mount(oldVnode, root);
+mount(vNode, root);
 setTimeout(() => {
   console.log(oldVnode, newVnode);
   patch(oldVnode, newVnode);

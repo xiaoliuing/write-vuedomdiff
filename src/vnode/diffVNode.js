@@ -1,5 +1,6 @@
 import { createNewDomElement, updateDomProperties, oldSameNewNode, oldKeyMapIndex } from "./utils";
 
+
 function updateChildrenNode(parentElement, newChildren, oldChildren) {
   // 新、老的开始索引和开始节点
   let oldStartIndex = 0, oldStartVNode = oldChildren[0];
@@ -10,15 +11,16 @@ function updateChildrenNode(parentElement, newChildren, oldChildren) {
   const oldKeyIndexMap = oldKeyMapIndex(oldChildren);
   
   while(oldStartIndex <= oldEndIndex && newStartIndex <= newEndIndex) {
+    debugger
     if(!oldEndVNode) {
-      oldEndVNode = oldChildren[--oldEndIndex];  // 节点被移动了
+      oldEndVNode = oldChildren[--oldEndIndex];  // 该索引处节点被移动了，改为上一个索引节点
     }else if(!oldStartVNode){
-      oldStartVNode = oldChildren[++oldStartIndex];
-    }else if (oldSameNewNode(oldStartVNode, newStartVNode)) { // 新、老儿子对列，头和头比较
+      oldStartVNode = oldChildren[++oldStartIndex]; // 该索引处节点被移动了，改为下一个索引节点
+    }else if (oldSameNewNode(oldStartVNode, newStartVNode)) { // 新、老儿子对列，头节点和头节点比较
       patch(oldStartVNode, newStartVNode);
       oldStartVNode = oldChildren[++oldStartIndex];
       newStartVNode = newChildren[++newStartIndex];
-    } else if(oldSameNewNode(oldEndVNode, newEndVNode)){ // 新、老儿子对列，尾和尾比较
+    } else if(oldSameNewNode(oldEndVNode, newEndVNode)){ // 新、老儿子对列，尾节点和尾节点比较
       patch(oldEndVNode, newEndVNode);
       oldEndVNode = oldChildren[--oldEndIndex];
       newEndVNode = newChildren[--newEndIndex];
@@ -66,6 +68,9 @@ function updateChildrenNode(parentElement, newChildren, oldChildren) {
     }
   }
 }
+
+
+
 
 function patch(oldVNode, newVNode) {
   // 1、节点类型不一样, 直接重建（替换节点）

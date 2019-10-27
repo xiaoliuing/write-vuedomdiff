@@ -1,4 +1,4 @@
-import { V_NODE } from './utils';
+import { VIRTUAL_NODE } from './utils';
 const hasOwnProperty = Object.prototype.hasOwnProperty;
 export default function(tag, config, ...children) {
   let props = {};  // 存放dom属性
@@ -24,6 +24,6 @@ export default function(tag, config, ...children) {
 
 function createVNode (tag, key, props={}, children, text, domElement) {
   return {
-    _tag: V_NODE, tag, key, props, children, text, domElement
+    _tag: VIRTUAL_NODE, tag, key, props, children, text, domElement
   }
 }
