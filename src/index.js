@@ -1,57 +1,56 @@
-import { h, mount, patch } from './vnode';
+import { createVDom, render, patch } from './vnode';
 
 const root = document.getElementById('root');
-const vNode = h(
+const vNode = createVDom(
   'div',
    { style: { color: 'red' }, id: 'wrap'},
-   h('h1', {}, 'Virtual'),
+   createVDom('h1', {}, 'Virtual'),
    'Dom'
 )
-console.log(vNode);
+render(vNode, root);
 
-
-// const oldVnode = h('ul', { id: 'container' },
-//     h('li', { style: { backgroundColor: '#110000' }, key: 'A' }, 'A'),
-//     h('li', { style: { backgroundColor: '#440000' }, key: 'B' }, 'B'),
-//     h('li', { style: { backgroundColor: '#770000' }, key: 'C' }, 'C'),
-//     h('li', { style: { backgroundColor: '#AA0000' }, key: 'D' }, 'D'),
+// const oldVnode = createVDom('ul', { id: 'container' },
+//     createVDom('li', { style: { backgroundColor: '#110000' }, key: 'A' }, 'A'),
+//     createVDom('li', { style: { backgroundColor: '#440000' }, key: 'B' }, 'B'),
+//     createVDom('li', { style: { backgroundColor: '#770000' }, key: 'C' }, 'C'),
+//     createVDom('li', { style: { backgroundColor: '#AA0000' }, key: 'D' }, 'D'),
 // );
-// const newVnode = h('ul', { id: 'container' },
-//     h('li', { style: { backgroundColor: '#110000' }, key: 'A' }, 'A1'),
-//     h('li', { style: { backgroundColor: '#440000' }, key: 'B' }, 'B1'),
-//     h('li', { style: { backgroundColor: '#770000' }, key: 'C' }, 'C1'),
-//     h('li', { style: { backgroundColor: '#AA0000' }, key: 'D' }, 'D1'),
-//     h('li', { style: { backgroundColor: '#AA0000' }, key: 'E' }, 'E1'),
-//     h('li', { style: { backgroundColor: '#AA0000' }, key: 'F' }, 'F1'),
-// );
-
-// const oldVnode = h('ul', { id: 'container' },
-//     h('li', { style: { backgroundColor: '#110000' } }, 'A'),
-//     h('li', { style: { backgroundColor: '#440000' } }, 'B'),
-//     h('li', { style: { backgroundColor: '#770000' } }, 'C'),
-//     h('li', { style: { backgroundColor: '#AA0000' } }, 'D'),
-// );
-// const newVnode = h('ul', { id: 'container' },
-//     h('li', { style: { backgroundColor: '#110000' } }, 'A1'),
-//     h('li', { style: { backgroundColor: '#440000' } }, 'B1'),
-//     h('li', { style: { backgroundColor: '#770000' } }, 'C1'),
-//     h('li', { style: { backgroundColor: '#AA0000' } }, 'D1'),
+// const newVnode = createVDom('ul', { id: 'container' },
+//     createVDom('li', { style: { backgroundColor: '#110000' }, key: 'A' }, 'A1'),
+//     createVDom('li', { style: { backgroundColor: '#440000' }, key: 'B' }, 'B1'),
+//     createVDom('li', { style: { backgroundColor: '#770000' }, key: 'C' }, 'C1'),
+//     createVDom('li', { style: { backgroundColor: '#AA0000' }, key: 'D' }, 'D1'),
+//     createVDom('li', { style: { backgroundColor: '#AA0000' }, key: 'E' }, 'E1'),
+//     createVDom('li', { style: { backgroundColor: '#AA0000' }, key: 'F' }, 'F1'),
 // );
 
- const oldVnode = h('ul', { id: 'container' },
-    h('li', { style: { backgroundColor: '#110000' }, key: 'A' }, 'A'),
-    h('li', { style: { backgroundColor: '#440000' }, key: 'B' }, 'B'),
-    h('li', { style: { backgroundColor: '#770000' }, key: 'C' }, 'C'),
-    h('li', { style: { backgroundColor: '#AA0000' }, key: 'D' }, 'D'),
+// const oldVnode = createVDom('ul', { id: 'container' },
+//     createVDom('li', { style: { backgroundColor: '#110000' } }, 'A'),
+//     createVDom('li', { style: { backgroundColor: '#440000' } }, 'B'),
+//     createVDom('li', { style: { backgroundColor: '#770000' } }, 'C'),
+//     createVDom('li', { style: { backgroundColor: '#AA0000' } }, 'D'),
+// );
+// const newVnode = createVDom('ul', { id: 'container' },
+//     createVDom('li', { style: { backgroundColor: '#110000' } }, 'A1'),
+//     createVDom('li', { style: { backgroundColor: '#440000' } }, 'B1'),
+//     createVDom('li', { style: { backgroundColor: '#770000' } }, 'C1'),
+//     createVDom('li', { style: { backgroundColor: '#AA0000' } }, 'D1'),
+// );
+
+ const oldVnode = createVDom('ul', { id: 'container' },
+    createVDom('li', { style: { backgroundColor: '#110000' }, key: 'A' }, 'A'),
+    createVDom('li', { style: { backgroundColor: '#440000' }, key: 'B' }, 'B'),
+    createVDom('li', { style: { backgroundColor: '#770000' }, key: 'C' }, 'C'),
+    createVDom('li', { style: { backgroundColor: '#AA0000' }, key: 'D' }, 'D'),
 );
-const newVnode = h('ul', { id: 'container' },
-    h('li', { style: { backgroundColor: '#AA0000' }, key: 'E' }, 'E'),
-    h('li', { style: { backgroundColor: '#440000' }, key: 'B' }, 'B1'),
-    h('li', { style: { backgroundColor: '#110000' }, key: 'A' }, 'A1'),
-    h('li', { style: { backgroundColor: '#AA0000' }, key: 'D' }, 'D1'),
-    h('li', { style: { backgroundColor: '#770000' }, key: 'F' }, 'F'),
+const newVnode = createVDom('ul', { id: 'container' },
+    createVDom('li', { style: { backgroundColor: '#AA0000' }, key: 'E' }, 'E'),
+    createVDom('li', { style: { backgroundColor: '#440000' }, key: 'B' }, 'B1'),
+    createVDom('li', { style: { backgroundColor: '#110000' }, key: 'A' }, 'A1'),
+    createVDom('li', { style: { backgroundColor: '#AA0000' }, key: 'D' }, 'D1'),
+    createVDom('li', { style: { backgroundColor: '#770000' }, key: 'F' }, 'F'),
 );
-mount(vNode, root);
+render(oldVnode, root);
 setTimeout(() => {
   console.log(oldVnode, newVnode);
   patch(oldVnode, newVnode);

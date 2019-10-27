@@ -11,7 +11,6 @@ function updateChildrenNode(parentElement, newChildren, oldChildren) {
   const oldKeyIndexMap = oldKeyMapIndex(oldChildren);
   
   while(oldStartIndex <= oldEndIndex && newStartIndex <= newEndIndex) {
-    debugger
     if(!oldEndVNode) {
       oldEndVNode = oldChildren[--oldEndIndex];  // 该索引处节点被移动了，改为上一个索引节点
     }else if(!oldStartVNode){
