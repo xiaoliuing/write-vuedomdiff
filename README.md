@@ -1,10 +1,10 @@
 # 实现一个简单的vue 虚拟Dom Diff
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;`Virtual  Dom`，就是一个js对象，具体点就是一个使用**javascript**模拟了**DOM结构**的树形结构对象，这个树结构包含整个`DOM`结构的信息。
+`Virtual  Dom`，就是一个js对象，具体点就是一个使用**javascript**模拟了**DOM结构**的树形结构对象，这个树结构包含整个`DOM`结构的信息。
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;真实`dom`的开销是很大的，在我们改变页面的某个元素的状态时，浏览器会重新绘制整个`render Dom tree`，比如用js同时改变十处节点的状态时，浏览器就会有十次的重绘操作，效率是非常低下的。而`virtual Dom`不会重新构建整个`dom tree`，它只会去更新改变的节点。大体就是在`Vdom`挂载到页面后，会将真实的`dom`存放在`old virtual dom`的一个属性中，这样在`newVnode`与`oldVnode Diff`（打补丁）时，若发生了改变，就只去更新当前`vNode`的`Dom`的状态，而不是重新去构建整个`Dom Tree`，这样大大提高了性能。
+真实`dom`的开销是很大的，在我们改变页面的某个元素的状态时，浏览器会重新绘制整个`render Dom tree`，比如用js同时改变十处节点的状态时，浏览器就会有十次的重绘操作，效率是非常低下的。而`virtual Dom`不会重新构建整个`dom tree`，它只会去更新改变的节点。大体就是在`Vdom`挂载到页面后，会将真实的`dom`存放在`old virtual dom`的一个属性中，这样在`newVnode`与`oldVnode Diff`（打补丁）时，若发生了改变，就只去更新当前`vNode`的`Dom`的状态，而不是重新去构建整个`Dom Tree`，这样大大提高了性能。
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;该篇文章只是简单手写一个vue的dom diff，跟源码不一样，看者慎看，[源码链接](https://github.com/vuejs/vue/tree/dev/src/core/vdom)。
+该篇文章只是简单手写一个vue的dom diff，跟源码不太一样，基本思想差不多[源码链接](https://github.com/vuejs/vue/tree/dev/src/core/vdom)。
 
 ## 构建虚拟dom
 
@@ -173,11 +173,11 @@ render(vNode, root);
 
 <img src="https://www.xiaoliua.com/images/vue/vnode_dom.png" width="500" align=center />
 
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 上一章我们首次将虚拟dom挂载到了页面上，这一章将讲讲Vnode的diff算法，采用的的同级比较，不会跨级，用到算法是深度优先遍历，具体看看图：
-
-<img src="https://www.xiaoliua.com/images/vue/vnode_diff.png" width="600" align=center />
 
 ## diff算法
+采用的的同级比较，不会跨级，用到算法是深度优先遍历，具体看看图：
+
+<img src="https://www.xiaoliua.com/images/vue/vnode_diff.png" width="600" align=center />
 
 和源码不同的是，我是自己调用`patch`方法进行下面的操作的，不是组件`data`状态发生改变而引起的`diff`，重点在算法上，这点就不纠结了。
 
@@ -287,7 +287,7 @@ let newEndIndex = newChildren.length - 1, newEndVNode = newChildren[newEndIndex]
 >
 > 下面说到的`dom`节点均为`real  dom`节点
 
-**①、**新、老儿子对列，头节点和头节点类型相同
+** ①、**新、老儿子对列，头节点和头节点类型相同
 
 * `patch`新、老队列的开始节点
 * 两队列的开始、结束索引和节点，都后移一位
@@ -304,7 +304,7 @@ if (oldSameNewNode(oldStartVNode, newStartVNode)) { // 新、老儿子对列，�
 }
 ```
 
-**②、**新、老儿子对列，尾节点和尾节点类型相同
+** ②、**新、老儿子对列，尾节点和尾节点类型相同
 
 * `patch`新、老队列的结束节点
 * 两队列的开始、结束索引和节点，都前移移一位
@@ -321,7 +321,7 @@ if(oldSameNewNode(oldEndVNode, newEndVNode)){ // 新、老儿子对列，尾节�
 }
 ```
 
-**③、**新的儿子对列结束节点，与老的儿子对列开始节点类型相同，
+** ③、**新的儿子对列结束节点，与老的儿子对列开始节点类型相同，
 
 * `patch`老队列的开始节点、新的结束节点
 * 将更新后的`dom`节点，插到老的队列结束`dom`节点的后面
@@ -340,7 +340,7 @@ if(oldSameNewNode(oldStartVNode, newEndVNode)) { // 新的儿子对列尾节点�
 }
 ```
 
-**④、**新的儿子对列开始节点，与老的儿子对列结束节点类型相同
+** ④、**新的儿子对列开始节点，与老的儿子对列结束节点类型相同
 
 * `patch`老队列的结束节点、新的开始节点
 * 将更新后的`dom`节点，插到老的队列开始节点的前面
@@ -359,7 +359,7 @@ if (oldSameNewNode(oldEndVNode, newStartVNode)) {// 新的儿子对列头节点�
 }
 ```
 
-**⑤、**该种毫无规律可言，若前四种优化选择项均不满足，就要`key`值来处理节点的比较，首先需要取得老的儿子队列每个节点的`key`存到一个对象里，键为`key`，键值为索引。然后新的儿子队列从开始索引的节点，用key在老队列key组成的对象检索该key是否存在。
+** ⑤、**该种毫无规律可言，若前四种优化选择项均不满足，就要`key`值来处理节点的比较，首先需要取得老的儿子队列每个节点的`key`存到一个对象里，键为`key`，键值为索引。然后新的儿子队列从开始索引的节点，用key在老队列key组成的对象检索该key是否存在。
 
 * `key`不存在，直接将该节点，插到老的儿子队列的开始节点的前面，并创建该`Vnode`的`real dom`
 * `key`存在，就要判断`tag`类型是否相同
