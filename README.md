@@ -287,7 +287,7 @@ let newEndIndex = newChildren.length - 1, newEndVNode = newChildren[newEndIndex]
 >
 > 下面说到的`dom`节点均为`real  dom`节点
 
-** ①、**新、老儿子对列，头节点和头节点类型相同
+** ①、** 新、老儿子对列，头节点和头节点类型相同
 
 * `patch`新、老队列的开始节点
 * 两队列的开始、结束索引和节点，都后移一位
